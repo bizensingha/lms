@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Books</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Library Books</h1>
+        <div class="row">
+            {% for book in books %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">Author: {{ book.author }}</p>
+                        <p class="card-text">ISBN: {{ book.isbn }}</p>
+                        <p class="card-text">Copies Available: {{ book.copies }}</p>
+                        {% if book.copies > 0 %}
+                        <a href="{% url 'borrow_book' book_id=book.id %}" class="btn btn-success">Borrow</a>
+                        {% else %}
+                        <button class="btn btn-secondary" disabled>Not Available</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Button to return to the dashboard -->
+        <div class="row">
+            <div class="col-md-12">
+                <a href="{% url 'dashboard' %}" class="btn btn-primary mt-4">Return to Dashboard</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

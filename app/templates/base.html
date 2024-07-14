@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Library Dashboard{% endblock %}</title>
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add additional CSS if needed -->
+   
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Library Dashboard</a>
+            <!-- Add navigation links or dropdowns here if needed -->
+        </nav>
+        
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <!-- Sidebar content -->
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                       <!-- Sidebar links -->
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'welcome' %}">Welcome</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'booklist' %}">Books</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+</li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'borrowed_books' %}">Borrowed Books</a>
+                        </li>
+
+                        {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'add_book' %}">Add Books</a>
+                        </li>
+                        {% endif %}
+                        <!-- Add more sidebar links as needed -->
+                        {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'requests' %}">Help Requests</a>
+                        </li>
+                        {% endif %}
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">{% block page_title %}{% endblock %}</h1>
+                    <!-- Additional header content if needed -->
+                </div>
+
+
+
+                <div class="container">
+                    {% block content %}
+                     <div class="jumbotron">
+                        <h1 class="display-4">Welcome to My Library Dashboard!</h1>
+                        <p class="lead">Explore and manage your library activities.</p>
+                        <hr class="my-4">
+                        <p>Get started by selecting an option from the sidebar.</p>
+                    </div> 
+                    {% endblock %}
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Add additional JavaScript if needed -->
+</body>
+</html> 
+

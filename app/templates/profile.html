@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - My Library{% endblock %}
+
+{% block page_title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <!-- Profile Summary -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center mb-4">
+                    {% if profile.profile_pic %}
+                        <img src="{{ profile.profile_pic.url }}" class="img-fluid rounded-circle" style="max-width: 150px;" alt="Profile Picture">
+                    {% comment %} {% else %}
+                        <img src="{% static 'img/default_profile_pic.jpg' %}" class="img-fluid rounded-circle" style="max-width: 150px;" alt="Default Profile Picture"> {% endcomment %}
+                    {% endif %} 
+                </div>
+                <h5 class="card-title">Your Profile</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Username: {{ user.username }}</li>
+                    <li class="list-group-item">Email: {{ user.email }}</li>
+                    <li class="list-group-item">Phone Number: {{ profile.phone_number}}</li>
+                    <li class="list-group-item">Borrowed Books: {{ borrowed_books_count }}</li>
+                    <li class="list-group-item">Due Soon: {{ due_soon_count }}</li>
+                </ul>
+
+                <!-- Add a link to update profile -->
+<a href="{% url 'update_profile' %}" class="btn btn-primary">Update Profile</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

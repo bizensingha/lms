@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - My Library{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Search Books -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Search Books</h5>
+                <form action="{% url 'booklist' %}" method="GET">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Enter book title..." name="query">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- Display search results here if needed -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Quick Actions -->
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Quick Actions</h5>
+                <div class="btn-group d-flex justify-content-between" role="group">
+                    <a href="{% url 'borrow_book' book_id=1 %}" class="btn btn-success">Borrow a Book</a>
+                    <a href="{% url 'borrowed_books'  %}" class="btn btn-danger">Return a Book</a>
+                    <a href="{% url 'borrowed_books'  %}" class="btn btn-info">Renew a Loan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Announcements -->
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Announcements</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">New books available from next week.</li>
+                    <li class="list-group-item">Library closed on public holidays.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overview Cards -->
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Books</h5>
+                <p class="card-text">{{ total_books }}</p>
+                <a href="{% url 'booklist' %}" class="btn btn-primary">View All</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Borrowed Books</h5>
+                <p class="card-text">50</p>
+                <a href="{% url 'borrowed_books' %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+   
+
+    <!-- Recent Activities -->
+   
+
+    <!-- Feedback -->
+    <div class="container">
+        <h3>Need Help?</h3>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Help Request</h5>
+                        <form method="post" action="{% url 'help_request' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" rows="5" placeholder="Type your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

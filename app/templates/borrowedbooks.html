@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrowed Books</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Borrowed Books</h1>
+        <div class="row">
+            {% if borrowed_books %}
+                {% for borrowed in borrowed_books %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ borrowed.book.title }}</h5>
+                            <p class="card-text">Author: {{ borrowed.book.author }}</p>
+                            <p class="card-text">Borrowed Date: {{ borrowed.borrow_date }}</p>
+                            <p class="card-text">Due Date: {{ borrowed.due_date }}</p>
+                            {% if not borrowed.returned %}
+                            <form action="{% url 'return_book' borrow_id=borrowed.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Return</button>
+                            </form>
+                            <form action="{% url 'renew_loan' borrow_id=borrowed.id %}" method="POST" style="margin-top: 10px;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-info">Renew</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <div class="alert alert-warning" role="alert">
+                        No borrowed books.
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <a href="{% url 'dashboard' %}" class="btn btn-primary mt-4">Back to Dashboard</a>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
